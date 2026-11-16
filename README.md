@@ -2,6 +2,10 @@
 
 A two-player browser game. The board and controls use HTML/CSS/JavaScript. It works immediately with the JavaScript rules; after the optional Emscripten build, it uses the C rules compiled to WebAssembly.
 
+## Play online
+
+[Play Snake & Ladders](https://remarkable-bunny-c2be1e.netlify.app)
+
 ## Files
 
 - `game.c` — game rules and state, written in C.
@@ -33,4 +37,3 @@ Open `index.html` in a browser to play the game. The dice button generates a ran
 ## Rules
 
 Players take turns rolling a six-sided die. A ladder moves a player up and a snake moves them down. The first player to land exactly on square 100 wins. A roll that would move past 100 leaves the player in place. Pawns are shown on the numbered board, and the status panel announces rolls and jumps.
-README.md
