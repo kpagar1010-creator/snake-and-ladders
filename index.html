@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1e9">
+  <title>Snake &amp; Ladders</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="hero">
+      <div class="eyebrow">A CLASSIC RACE TO 100</div>
+      <h1>Snake <span>&amp;</span> Ladders</h1>
+      <p>Roll the dice, climb a little, and watch out below.</p>
+    </header>
+
+    <section class="game-layout" aria-label="Snake and Ladders game">
+      <div class="board-wrap">
+        <div id="board" class="board" role="grid" aria-label="Numbered game board"></div>
+        <div class="board-key"><span><i class="key-ladder"></i> Ladder</span><span><i class="key-snake"></i> Snake</span></div>
+      </div>
+
+      <aside class="panel">
+        <div class="turn-card">
+          <div class="turn-label">CURRENT TURN</div>
+          <div class="turn-name" id="turn-name">Player 1</div>
+          <div class="turn-hint" id="turn-hint">Ready when you are.</div>
+        </div>
+
+        <div class="players" aria-label="Player positions">
+          <div class="player-row"><span class="player-dot p1"></span><span>Player 1</span><strong id="p1-position">Start</strong></div>
+          <div class="player-row"><span class="player-dot p2"></span><span>Player 2</span><strong id="p2-position">Start</strong></div>
+        </div>
+
+        <div class="dice-area">
+          <div id="dice" class="dice" aria-label="Dice result">–</div>
+          <button id="roll-button" class="roll-button" type="button">Roll the dice <span aria-hidden="true">↗</span></button>
+          <button id="restart-button" class="restart-button" type="button">Start a new game</button>
+        </div>
+        <div id="message" class="message" role="status" aria-live="polite">Player 1, roll to begin!</div>
+
+        <details class="how-to-play">
+          <summary>How to play</summary>
+          <p>Take turns rolling the dice. Land on a ladder to climb up; land on a snake to slide down. Be the first to reach square 100 with an exact roll. If your roll goes past 100, stay where you are.</p>
+        </details>
+      </aside>
+    </section>
+    <footer>Two players · One finish line · Lots of luck</footer>
+  </main>
+  <script src="game_module.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
