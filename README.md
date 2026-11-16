@@ -1,115 +1,77 @@
 <div align="center">
 
+<img src="assets/snake-and-ladders-banner.svg" alt="Snake & Ladders — a classic race to 100" width="100%">
+
 # 🎲 Snake & Ladders
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-2ecc71?style=for-the-badge&logo=netlify)](https://remarkable-bunny-c2be1e.netlify.app)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![C](https://img.shields.io/badge/C-Game%20Logic-00599C?style=for-the-badge&logo=c)](https://en.wikipedia.org/wiki/C_(programming_language))
-[![WebAssembly](https://img.shields.io/badge/WebAssembly-Enabled-654FF0?style=for-the-badge&logo=webassembly)](https://webassembly.org/)
+[![Play online](https://img.shields.io/badge/▶%20Play%20online-256D57?style=for-the-badge)](https://remarkable-bunny-c2be1e.netlify.app)
+[![GitHub stars](https://img.shields.io/github/stars/kpagar1010-creator/snake-and-ladders?style=for-the-badge&logo=github)](https://github.com/kpagar1010-creator/snake-and-ladders/stargazers)
+[![JavaScript](https://img.shields.io/badge/JavaScript-game%20UI-F7DF1E?style=for-the-badge&logo=javascript&logoColor=222)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![C and WebAssembly](https://img.shields.io/badge/C%20%2B%20WebAssembly-optional-654FF0?style=for-the-badge&logo=webassembly&logoColor=white)](https://webassembly.org/)
 
-**A classic two-player board game built for the browser.**
+**A classic two-player race to 100—play instantly in your browser.**
 
-Play instantly in the browser, or explore the same logic in C and WebAssembly.
-
-[**Play online**](https://remarkable-bunny-c2be1e.netlify.app) · [**Open issues**](https://github.com/kpagar1010-creator/snake-and-ladders/issues)
+[Play the live game](https://remarkable-bunny-c2be1e.netlify.app) · [Report a bug](https://github.com/kpagar1010-creator/snake-and-ladders/issues/new) · [Suggest a feature](https://github.com/kpagar1010-creator/snake-and-ladders/issues/new)
 
 </div>
 
-## ✨ Overview
+## About
 
-This project is a browser-based Snake & Ladders game built with HTML, CSS, and JavaScript. It is designed to work immediately without setup, while still supporting a more advanced version where the game rules are implemented in C and compiled to WebAssembly with Emscripten.
+Snake & Ladders is a lightweight, two-player browser game built with HTML, CSS, and JavaScript. No install or dependencies are required to play. The game also includes an optional C implementation that can be compiled to WebAssembly using Emscripten.
 
-It combines a simple user interface with classic board game logic, making it a good project for learning frontend development, game logic, and WebAssembly integration.
+## Features
 
-## 🎮 Features
+- Take turns rolling the dice and race to square 100
+- Climb ladders, slide down snakes, and aim for an exact finish
+- Play on desktop or mobile with a responsive interface
+- Start playing immediately with the built-in JavaScript rules
+- Experiment with the optional C/WebAssembly game engine
 
-- Two-player turn-based gameplay
-- Responsive board layout for desktop and mobile
-- Dice roll system with smooth game updates
-- Snakes and ladders with classic rules
-- Exact-roll-to-finish behavior
-- JavaScript gameplay works immediately out of the box
-- Optional C + WebAssembly version for experimentation
+## Quick start
 
-## ▶️ Play now
+**Play online:** [remarkable-bunny-c2be1e.netlify.app](https://remarkable-bunny-c2be1e.netlify.app)
 
-You can play the live version here:
+**Run locally:** clone or download this repository, then open `index.html` in a browser. Or start a local web server from the project directory:
 
-- [Demo site](https://remarkable-bunny-c2be1e.netlify.app)
-
-Or run it locally:
-
-```bash
+```sh
 python -m http.server 8000
 ```
 
-Then open:
+Open [http://localhost:8000](http://localhost:8000). The JavaScript version also works when opening `index.html` directly; use a local server for the optional WebAssembly build.
 
-```text
-http://localhost:8000
-```
+## How to play
 
-## 🧠 How the game works
+1. Players take turns rolling the six-sided die.
+2. Landing on a ladder moves you up; landing on a snake moves you down.
+3. Reach square 100 with an exact roll to win. A roll past 100 leaves you in place.
 
-Each player takes turns rolling a six-sided die. Landing on a ladder moves a player upward, while landing on a snake sends them downward. The first player to reach square 100 exactly wins. If a roll would move a player beyond 100, they stay in place.
+## Optional: build with C and WebAssembly
 
-## 🏗️ Project structure
+1. Install and activate the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html).
+2. In the project directory, compile the C game logic:
 
-```text
-snake-and-ladders/
-├── index.html         # Game interface
-├── style.css          # Styling and responsive layout
-├── app.js             # Board rendering and game logic in JavaScript
-├── game.c             # Optional C implementation of the game rules
-├── game_module.js     # Generated by Emscripten build
-├── game_module.wasm   # Generated WebAssembly module
-├── README.md          # Project documentation
-└── LICENSE            # If added later
-```
+   ```sh
+   emcc game.c -O2 -s WASM=1 -s MODULARIZE=1 -s EXPORT_NAME=SnakeGame -s EXPORTED_FUNCTIONS='["_game_reset","_game_move","_game_get_position","_game_get_current_player","_game_get_winner","_game_get_last_roll","_game_get_event_type","_game_get_event_from","_game_get_event_to"]' -o game_module.js
+   ```
 
-## 🛠️ Optional: build with WebAssembly
+3. Serve the project over HTTP and open it in your browser. The generated `game_module.js` and `game_module.wasm` are optional; without them, gameplay falls back to JavaScript.
 
-To use the C implementation instead of the built-in JavaScript rules:
+## Project structure
 
-1. Install the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html).
-2. Activate it in your terminal.
-3. Compile the game:
+| File | Purpose |
+| --- | --- |
+| `index.html` | Game page and interface structure |
+| `style.css` | Responsive visual styles |
+| `app.js` | Board rendering, controls, and JavaScript game logic |
+| `game.c` | Game state and rules for the optional WebAssembly build |
+| `assets/snake-and-ladders-banner.svg` | README banner artwork |
 
-```bash
-emcc game.c -O2 -s WASM=1 -s MODULARIZE=1 -s EXPORT_NAME=SnakeGame -s EXPORTED_FUNCTIONS='["_game_reset","_game_move","_game_get_position","_game_get_current_player","_game_get_winner","_game_get_last_roll","_game_get_event_type","_game_get_event_from","_game_get_event_to"]' -o game_module.js
-```
+## Built with
 
-4. Serve the project over HTTP and open the page in a browser.
+HTML · CSS · JavaScript · C · WebAssembly (optional)
 
-> The generated `game_module.js` and `game_module.wasm` files are loaded when present. If they are not present, the game falls back to its JavaScript implementation.
+## Contributing
 
-## 🧪 Tech stack
+Bug reports, feature ideas, and pull requests are welcome. [Open an issue](https://github.com/kpagar1010-creator/snake-and-ladders/issues/new) to report a problem or suggest an improvement. For code changes, please describe what you changed and how you tested it.
 
-- HTML5
-- CSS3
-- JavaScript
-- C
-- WebAssembly (optional)
-
-## 🤝 Contributing
-
-Contributions are welcome.
-
-If you want to improve the game, fix a bug, add a feature, or polish the UI, feel free to:
-
-- open an issue
-- submit a pull request
-- suggest enhancements for gameplay or design
-
-## ⭐ Why this project stands out
-
-This repository is simple, easy to run, and demonstrates both frontend game development and systems-level logic in one project. It is a great example of:
-
-- game state management
-- browser-based interaction
-- JavaScript fallback logic
-- optional WebAssembly integration
-
-A clean README and well-structured code make the project easier for others to understand, try, and contribute to.
-
-If you like the project, consider giving it a star on GitHub.
+If you enjoy the game, consider giving the repository a ⭐—it helps others find the project.
