@@ -2,71 +2,114 @@
 
 # 🎲 Snake & Ladders
 
-**A classic two-player race to 100—right in your browser.**
+[![Live Demo](https://img.shields.io/badge/Live-Demo-2ecc71?style=for-the-badge&logo=netlify)](https://remarkable-bunny-c2be1e.netlify.app)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![C](https://img.shields.io/badge/C-Game%20Logic-00599C?style=for-the-badge&logo=c)](https://en.wikipedia.org/wiki/C_(programming_language))
+[![WebAssembly](https://img.shields.io/badge/WebAssembly-Enabled-654FF0?style=for-the-badge&logo=webassembly)](https://webassembly.org/)
 
-Play locally with JavaScript, or build the game rules in C and run them through WebAssembly.
+**A classic two-player board game built for the browser.**
 
-[**Play online**](https://remarkable-bunny-c2be1e.netlify.app) · [Report a bug](https://github.com/kpagar1010-creator/snake-and-ladders/issues)
+Play instantly in the browser, or explore the same logic in C and WebAssembly.
+
+[**Play online**](https://remarkable-bunny-c2be1e.netlify.app) · [**Open issues**](https://github.com/kpagar1010-creator/snake-and-ladders/issues)
 
 </div>
 
-## About
+## ✨ Overview
 
-Snake & Ladders is a lightweight browser game built with HTML, CSS, and JavaScript. No install or dependencies are needed to play. The included C game logic can optionally be compiled to WebAssembly with Emscripten.
+This project is a browser-based Snake & Ladders game built with HTML, CSS, and JavaScript. It is designed to work immediately without setup, while still supporting a more advanced version where the game rules are implemented in C and compiled to WebAssembly with Emscripten.
 
-## Features
+It combines a simple user interface with classic board game logic, making it a good project for learning frontend development, game logic, and WebAssembly integration.
 
-- Two-player, turn-based gameplay
-- Responsive board and simple controls
-- Dice rolls, player positions, and turn indicators
-- Snakes, ladders, and exact-roll-to-win rules
-- JavaScript gameplay out of the box, with optional C/WebAssembly rules
+## 🎮 Features
 
-## Play
+- Two-player turn-based gameplay
+- Responsive board layout for desktop and mobile
+- Dice roll system with smooth game updates
+- Snakes and ladders with classic rules
+- Exact-roll-to-finish behavior
+- JavaScript gameplay works immediately out of the box
+- Optional C + WebAssembly version for experimentation
 
-Open [`index.html`](index.html) in a browser, or [play the hosted version](https://remarkable-bunny-c2be1e.netlify.app). Click **Roll the dice** to take a turn, and **Start a new game** to reset the board.
+## ▶️ Play now
 
-> The page works directly from the file system using its JavaScript rules. To use the optional WebAssembly build, serve the project over HTTP instead.
+You can play the live version here:
 
-## Rules
+- [Demo site](https://remarkable-bunny-c2be1e.netlify.app)
 
-1. Players take turns rolling a six-sided die.
-2. Landing on a ladder moves you up; landing on a snake moves you down.
-3. Reach square 100 with an exact roll to win. A roll past 100 leaves you in place.
+Or run it locally:
 
-## Run locally
-
-For the standard JavaScript version, open `index.html` in a browser. To run through a local web server (recommended when testing WebAssembly), start one in the project directory:
-
-```sh
+```bash
 python -m http.server 8000
 ```
 
-Then visit [http://localhost:8000](http://localhost:8000).
+Then open:
 
-## Optional: build the C/WebAssembly version
+```text
+http://localhost:8000
+```
 
-1. Install and activate the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html). For example, run `emsdk activate latest` and then `emsdk_env.bat` on Windows, or source `emsdk_env.sh` on macOS/Linux.
-2. From the project directory, compile the game:
+## 🧠 How the game works
 
-   ```sh
-   emcc game.c -O2 -s WASM=1 -s MODULARIZE=1 -s EXPORT_NAME=SnakeGame -s EXPORTED_FUNCTIONS='["_game_reset","_game_move","_game_get_position","_game_get_current_player","_game_get_winner","_game_get_last_roll","_game_get_event_type","_game_get_event_from","_game_get_event_to"]' -o game_module.js
-   ```
+Each player takes turns rolling a six-sided die. Landing on a ladder moves a player upward, while landing on a snake sends them downward. The first player to reach square 100 exactly wins. If a roll would move a player beyond 100, they stay in place.
 
-3. Start a local web server as described above and open [http://localhost:8000](http://localhost:8000). The generated `game_module.js` and `game_module.wasm` files are loaded when present; otherwise, the game uses its JavaScript rules.
+## 🏗️ Project structure
 
-## Project files
+```text
+snake-and-ladders/
+├── index.html         # Game interface
+├── style.css          # Styling and responsive layout
+├── app.js             # Board rendering and game logic in JavaScript
+├── game.c             # Optional C implementation of the game rules
+├── game_module.js     # Generated by Emscripten build
+├── game_module.wasm   # Generated WebAssembly module
+├── README.md          # Project documentation
+└── LICENSE            # If added later
+```
 
-| File | Purpose |
-| --- | --- |
-| `index.html` | Game page and interface structure |
-| `style.css` | Responsive visual styles |
-| `app.js` | Board rendering, controls, and JavaScript gameplay fallback |
-| `game.c` | Game rules and state for the optional WebAssembly build |
-| `game_module.js`, `game_module.wasm` | Generated by the optional Emscripten build; not required for JavaScript gameplay |
+## 🛠️ Optional: build with WebAssembly
 
-## Contributing
+To use the C implementation instead of the built-in JavaScript rules:
 
-Ideas, bug reports, and improvements are welcome. [Open an issue](https://github.com/kpagar1010-creator/snake-and-ladders/issues) to report a problem or suggest a feature, or submit a pull request with a clear description of your change.
+1. Install the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html).
+2. Activate it in your terminal.
+3. Compile the game:
 
-If you enjoy the game, consider giving the repository a ⭐—it helps others discover it.
+```bash
+emcc game.c -O2 -s WASM=1 -s MODULARIZE=1 -s EXPORT_NAME=SnakeGame -s EXPORTED_FUNCTIONS='["_game_reset","_game_move","_game_get_position","_game_get_current_player","_game_get_winner","_game_get_last_roll","_game_get_event_type","_game_get_event_from","_game_get_event_to"]' -o game_module.js
+```
+
+4. Serve the project over HTTP and open the page in a browser.
+
+> The generated `game_module.js` and `game_module.wasm` files are loaded when present. If they are not present, the game falls back to its JavaScript implementation.
+
+## 🧪 Tech stack
+
+- HTML5
+- CSS3
+- JavaScript
+- C
+- WebAssembly (optional)
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+If you want to improve the game, fix a bug, add a feature, or polish the UI, feel free to:
+
+- open an issue
+- submit a pull request
+- suggest enhancements for gameplay or design
+
+## ⭐ Why this project stands out
+
+This repository is simple, easy to run, and demonstrates both frontend game development and systems-level logic in one project. It is a great example of:
+
+- game state management
+- browser-based interaction
+- JavaScript fallback logic
+- optional WebAssembly integration
+
+A clean README and well-structured code make the project easier for others to understand, try, and contribute to.
+
+If you like the project, consider giving it a star on GitHub.
